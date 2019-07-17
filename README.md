@@ -28,7 +28,7 @@ Minori Hashimoto,
 Jake Dudum
 
 ![Bark](/public/assets/images/login-page.png)
-![Bark]()
+![Bark](/public/assets/images/Main.png)
 
 
 
