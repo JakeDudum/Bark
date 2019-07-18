@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js" data-auto-replace-svg="nest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js" type="text/javascript"></script>
-e
     <script src="https://code.jquery.com/jquery.js"></script>
 
 </head>
@@ -168,13 +167,11 @@ e
                     console.log(post.createdAt)
                     console.log(formattedDate)
 
-
                     newPostDate.append(newPostTime);
                     newPostLikes.text(post.likes);
                     upvoteBtn.attr('value', post.id);
 
                     newPostCardImg.attr('src', post.image);
-
 
                     newPostCardBody.append(newPostTitle, newPostCardText, newPostDate, newPostLikes, upvoteBtn, upvoteImg, userName);
 
