@@ -232,14 +232,4 @@ $(document).ready(function () {
 
     $("#category-" + selectionId).css("background-image", "url(assets/images/nav_bg.png)");
   }
-
-  $(".logout-btn").click(function () {
-    $.get('/api/auth/logout', function (response) {
-      if (response) {
-        location.reload();
-      } else {
-        alert("Please try again");
-      }
-    });
-  });
 });

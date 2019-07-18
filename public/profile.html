@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://use.fontawesome.com/releases/v5.9.0/js/all.js" data-auto-replace-svg="nest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.0/moment.min.js" type="text/javascript"></script>
-
-
+e
     <script src="https://code.jquery.com/jquery.js"></script>
 
 </head>
@@ -32,7 +31,7 @@
         <div class="col-6 col-sm-6 col-lg-2 col-xl-1">
             <button type="button" class="logout-btn actn-btn btn btn-light btn-small">Sign-out</button>
         </div>
-        <div class="col-12 col-sm-12 col-lg-3 col-xl-6 mr-2 my-1">
+        <div class="col-12 col-sm-12 col-lg-2 col-xl-6 mr-2 my-1">
             <input class="form-control px-0" type="search" placeholder="Search" aria-label="Search">
         </div>
         <div class="col-4 col-sm-4 col-lg-2 col-xl-1">
@@ -41,11 +40,6 @@
         <div class="col-4 col-sm-4 col-lg-2 col-xl-1">
             <button type="button" class="actn-btn btn btn-light btn-small" data-toggle="modal"
                 data-target="#exampleModal">Post</button>
-        </div>
-        <div class="col-4 col-sm-4 col-lg-1 col-xl-1">
-            <a link href="#" style="font-size: 2.5em; color: rgba(207, 207, 207, 0.4);">
-                <i class="far fa-user-circle ml-3"></i>
-            </a>
         </div>
     </nav>
     <br><br>
@@ -75,6 +69,17 @@
     </div>
 
     <script type="text/javascript">
+
+        $(".logout-btn").click(function () {
+            $.get('/api/auth/logout', function (response) {
+                if (response) {
+                    location.reload();
+                } else {
+                    alert("Please try again");
+                }
+            });
+        });
+
         $(document).ready(function () {
             moment().format();
 
