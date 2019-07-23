@@ -8,7 +8,6 @@ module.exports = {
             },
             include: [db.Blogger]
         }).then(function (dbPost) {
-            console.log("WTF");
             res.json(dbPost);
         });
     },
@@ -79,6 +78,22 @@ module.exports = {
         }).then(function (dbPost) {
             res.json(dbPost);
         });
+
+    },
+
+    searchAllPost: function (req, res) {
+        // console.log("sdfghjkjhgfdsdcfvgbhnjmnhbgvfcdxscfvgbhvfcdxcfvbnvcxdcvb",req.params.postBody)
+        db.Post.findAll({
+            where:{
+               body: 'Doggie'
+            }
+        })
+        .then(function(dbPost){
+        
+        res.json(dbPost);
+        console.log("my route works", dbPost);
+        })
+      
     }
 };
 

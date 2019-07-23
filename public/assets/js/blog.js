@@ -215,7 +215,7 @@ $(document).ready(function () {
 
   $(".category-btn").on('click', function (event) {
     event.preventDefault();
-
+    console.log("hi")
     var dataId = $(this).data("id");
     highlightCategory(dataId);
 
@@ -232,4 +232,17 @@ $(document).ready(function () {
 
     $("#category-" + selectionId).css("background-image", "url(assets/images/nav_bg.png)");
   }
+
+
+  $(".search").on('click', function (event) {
+    event.preventDefault();
+    var lookup = $("#input").val();
+    $.get("/api/post/searchAll/" + lookup, function (req, res) {
+      console.log("this is the res !!!", req)
+      if (res) {
+        console.log(res)
+      }
+    })
+
+  })
 });

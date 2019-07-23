@@ -5,6 +5,7 @@ Bark! Voice what's going on around you on our location based social platform. Ou
 Our members will access there the Bark! database and be able to see each individual relationship. We have created it so we render information based on the members location, and it will grab all post in that location. Results can also be filtered by category or user profile. 
 
 <br>
+
 Members have the option to create new content as well as add images for relevant information in their location and upvote notable posts. 
 
 

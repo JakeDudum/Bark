@@ -7,6 +7,9 @@ router.route("/")
 router.route("/findAll")
     .get(post.findAllPosts);
 
+router.route("/searchAll/:postBody")
+    .get(post.searchAllPost);
+
 router.route("/:city")
     .get(post.findAllLocation);
 
