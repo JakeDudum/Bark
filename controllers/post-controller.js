@@ -1,5 +1,6 @@
 var db = require("../models");
-
+var Sequelize = require("sequelize");
+var Op = Sequelize.Op
 module.exports = {
     findAllLocation: function (req, res) {
         db.Post.findAll({
@@ -85,13 +86,13 @@ module.exports = {
         // console.log("sdfghjkjhgfdsdcfvgbhnjmnhbgvfcdxscfvgbhvfcdxcfvbnvcxdcvb",req.params.postBody)
         db.Post.findAll({
             where:{
-               body: 'Doggie'
+                body: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('body')), 'LIKE', '%' + req.params.postBody + '%')
+                // {[Op.like]: `%${req.params.postBody}%`}
             }
         })
         .then(function(dbPost){
-        
-        res.json(dbPost);
         console.log("my route works", dbPost);
+        res.json(dbPost);
         })
       
     }

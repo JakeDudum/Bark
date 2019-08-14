@@ -236,7 +236,9 @@ $(document).ready(function () {
 
   $(".search").on('click', function (event) {
     event.preventDefault();
-    var lookup = $("#input").val();
+    var lookup = $("#input").val().toLowerCase();
+    console.log("this is the lake up value converted to lower case!",lookup)
+
     $.get("/api/post/searchAll/" + lookup, function (req, res) {
       console.log("this is the res !!!", req)
       if (res) {
