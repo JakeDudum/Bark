@@ -12,6 +12,17 @@ router.get("/", function (req, res) {
 
 });
 
+router.get("/signup", function (req, res) {
+    var auth = req.isAuthenticated();
+
+    if (auth) {
+        res.sendFile(path.join(__dirname, "/../../public/home.html"));
+    } else {
+        res.sendFile(path.join(__dirname, "/../../public/signup.html"));
+    }
+
+});
+
 router.get('/profile', function (req, res) {
     var auth = req.isAuthenticated();
     if (auth) {

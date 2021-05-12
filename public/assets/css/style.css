@@ -16,53 +16,52 @@ body {
 /* login css */
 
 #login-logo {
-    text-align: center; 
-    margin-top: 8%; 
-    margin-bottom: 1%; 
+    text-align: center;
+    margin-top: 8%;
+    margin-bottom: 1%;
 }
 
 .msg-wrap {
-    text-align: center; 
-    margin-top: 1%; 
+    text-align: center;
+    margin-top: 1%;
 }
 
 #login-body {
     background-image: url("../images/login_bg.png");
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
     overflow: hidden;
 }
 
 #auth-form {
-    background-color: rgba(0,0,0,0.2);
-    padding: 10px; 
-    height: 50vh; 
-    color: white; 
-    margin: 0 auto; 
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    color: white;
+    margin: 0 auto;
 }
 
 input {
-    background: transparent; 
-    border: none; 
-    border-bottom: 1px solid  rgba(255, 255, 255, 0.7); 
-    width: 100%; 
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+    width: 100%;
 }
 
 input:focus, input:active, input:hover {
-    background-color: transparent !important; 
-    background: transparent !important; 
+    background-color: transparent !important;
+    background: transparent !important;
 }
 
 label {
-    margin-top: 10px; 
+    margin-top: 10px;
 }
 
 button {
     width: 75%;
-    background-color:  rgba(255,255,255,0.2);
-    border: none; 
-    align-content: center; 
-    color: white; 
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    align-content: center;
+    color: white;
 }
 
 label {
@@ -70,22 +69,22 @@ label {
 }
 
 h2 {
-    text-align: center; 
-    padding-top: 5px; 
-    padding-bottom: 5px; 
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
     font-family: 'Pacifico', cursive;
 }
 
 .rotate-vert-center {
-	-webkit-animation: rotate-vert-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-	        animation: rotate-vert-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    -webkit-animation: rotate-vert-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    animation: rotate-vert-center 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
 #loader {
     z-index: 9999;
     min-height: 100vh;
     width: 100vw;
-    background: rgba(255,255,255,.8);
+    background: rgba(255, 255, 255, .8);
     position: fixed;
     padding: 10% 5%;
 }
@@ -100,63 +99,64 @@ h2 {
  * animation rotate-vert-center
  * ----------------------------------------
  */
- @-webkit-keyframes rotate-vert-center {
+
+@-webkit-keyframes rotate-vert-center {
     0% {
-      -webkit-transform: rotateY(0);
-              transform: rotateY(0);
+        -webkit-transform: rotateY(0);
+        transform: rotateY(0);
     }
     100% {
-      -webkit-transform: rotateY(360deg);
-              transform: rotateY(360deg);
+        -webkit-transform: rotateY(360deg);
+        transform: rotateY(360deg);
     }
-  }
-  @keyframes rotate-vert-center {
+}
+
+@keyframes rotate-vert-center {
     0% {
-      -webkit-transform: rotateY(0);
-              transform: rotateY(0);
+        -webkit-transform: rotateY(0);
+        transform: rotateY(0);
     }
     100% {
-      -webkit-transform: rotateY(360deg);
-              transform: rotateY(360deg);
+        -webkit-transform: rotateY(360deg);
+        transform: rotateY(360deg);
     }
-  }
+}
 
 /* home css */
 
 #home-body {
-    background-color: rgb(255, 255, 253); 
+    background-color: rgb(255, 255, 253);
 }
 
 #main-nav {
     background-image: url("../images/nav_bg.png");
     background-repeat: no-repeat;
-    background-size: cover; 
+    background-size: cover;
 }
 
 .actn-btn {
-    width: 80%; 
-    background-color:  rgba(255,255,255,0.2);
-    border: none; 
-    align-content: center; 
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    align-content: center;
     color: white;
 }
 
 #home-logo {
-    display: inline-block; 
+    display: inline-block;
     position: absolute;
     top: 0;
     bottom: 0;
     margin: auto;
-   
 }
 
 #home-header {
-    margin-left: 53px;   
+    margin-left: 53px;
     font-family: 'Pacifico', cursive;
-    font-size: 40px; 
-    margin-bottom: 0px !important; 
-    width: 30%; 
-    margin-right: 0px; 
+    font-size: 40px;
+    margin-bottom: 0px !important;
+    width: 30%;
+    margin-right: 0px;
 }
 
 #logo-col {
@@ -168,17 +168,17 @@ h2 {
 }
 
 #postContainer {
-    margin-top: 2%; 
+    margin-top: 2%;
 }
 
 #category-nav {
-    margin-top: 3%; 
+    margin-top: 3%;
 }
 
 .category {
-    background-color: rgba(207, 207, 207, 0.2); 
-    width: 100%; 
-    text-align: center; 
+    background-color: rgba(207, 207, 207, 0.2);
+    width: 100%;
+    text-align: center;
 }
 
 .category-btn {
@@ -213,7 +213,7 @@ h2 {
     border: 5px solid violet;
     margin-left: 30%;
 }
-    
+
 #history {
     border: 5px solid violet !important;
 }
@@ -223,13 +223,14 @@ h2 {
 }
 
 /* Modal CSS */
+
 .modal-label {
-    color: black; 
+    color: black;
 }
 
 #modal-close {
-    width: 5%; 
-    margin-right: 2% !important; 
+    width: 5%;
+    margin-right: 2% !important;
 }
 
 #exampleModalLabel {
