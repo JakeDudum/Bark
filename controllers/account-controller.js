@@ -4,7 +4,6 @@ var db = require("../models");
 module.exports = {
   find: function (req, res) {
     if (req.isAuthenticated()) {
-      console.log("loggedin")
       db.Account
         .findOne({ where: { userUUID: req.session.passport.user }, include: [db.Blogger] })
         .then(dbaccount => {
@@ -16,14 +15,10 @@ module.exports = {
 
         })
         .catch(function (err) {
-          console.log(err)
-          res.json(err)
+          res.json(err);
         });
-
-
     }
     else {
-      console.log("test")
       res.json("error");
     }
   },

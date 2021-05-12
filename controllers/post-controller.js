@@ -8,7 +8,6 @@ module.exports = {
             },
             include: [db.Blogger]
         }).then(function (dbPost) {
-            console.log("WTF");
             res.json(dbPost);
         });
     },
@@ -35,7 +34,6 @@ module.exports = {
     },
     create: function (req, res) {
         var bloggerID = req.session.passport.user;
-        console.log(req.body)
         db.Post.create({
             title: req.body.title,
             body: req.body.body,
@@ -44,10 +42,10 @@ module.exports = {
             CategoryId: parseInt(req.body.CategoryId),
             BloggerUuid: bloggerID
         }, {
-                include: [db.Blogger]
-            })
+            include: [db.Blogger]
+        })
             .then(function (newPost) {
-                console.log(newPost)
+                res.json(newPost);
             })
     },
     remove: function (req, res) {

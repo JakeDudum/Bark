@@ -27,7 +27,7 @@ $(document).ready(function () {
 
   function createWeatherWidget() {
     $.ajax({
-      url: 'https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/weather?lat=' + crd.latitude + '&lon=' + crd.longitude + '&units=imperial&appid=' + apiKey,
+      url: 'https://cryptic-castle-96421.herokuapp.com/api.openweathermap.org/data/2.5/weather?lat=' + crd.latitude + '&lon=' + crd.longitude + '&units=imperial&appid=' + apiKey,
       method: "GET"
 
     }).then(function (response) {
@@ -45,7 +45,6 @@ $(document).ready(function () {
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
 
         cityName = response.name;
-        console.log(cityName)
         // remove loader
         $("#loader").slideUp('slow');
 
@@ -56,10 +55,8 @@ $(document).ready(function () {
 
 
   function getPosts(categoryId) {
-
     if (categoryId !== undefined) {
       $.get("/api/post/" + cityName + "/category/" + categoryId, function (data) {
-        console.log("Posts", data);
         posts = data;
         if (!posts || !posts.length) {
           displayEmpty();
@@ -72,7 +69,6 @@ $(document).ready(function () {
 
     else {
       $.get("/api/post/" + cityName, function (data) {
-        console.log("Posts", data);
         posts = data;
         if (!posts || !posts.length) {
           displayEmpty();
@@ -113,31 +109,40 @@ $(document).ready(function () {
     //CREATE NEW post card
     var newPostCard = $("<div>");
     newPostCard.addClass("card m-2");
-    //CREATE NEW psot card img
+
+    //CREATE NEW post card img
     var newPostCardImg = $("<img>");
     newPostCardImg.addClass("card-img-top");
+
     //CREATE NEW post card body
     var newPostCardBody = $("<div>");
     newPostCardBody.addClass("card-body");
+
     //CREATE NEW upvote button
     var upvoteBtn = $("<button>");
     upvoteBtn.text("Like");
     upvoteBtn.addClass("upvote btn-sm btn-primary");
+
     //CREATE NEW like counter
     var newPostLikes = $("<small>");
     newPostLikes.attr('id', post.id);
+
     //CREATE NEW post title
     var newPostTitle = $("<h5>");
     newPostTitle.addClass("card-title");
+
     //CREATE NEW post date
     var newPostDate = $("<p>");
     newPostDate.addClass("card-text");
+
     //CREATE NEW post time
     var newPostTime = $("<small>")
     newPostTime.addClass("text-muted");
+
     //CREATE NEW card text
     var newPostCardText = $("<p>");
     newPostCardText.addClass("card-text");
+
     //CREATE NEW username
     var userName = $("<p>").text(post.Blogger.name);
     userName.addClass("username");
@@ -153,19 +158,13 @@ $(document).ready(function () {
     formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a")
 
     newPostTime.text(formattedDate); //grab created at from post
-    console.log(post.createdAt)
-    console.log(formattedDate)
-
-
     newPostDate.append(newPostTime);
     newPostLikes.text(post.likes);
     upvoteBtn.attr('value', post.id);
-
     newPostCardImg.attr('src', post.image);
 
 
     newPostCardBody.append(newPostTitle, newPostCardText, newPostDate, newPostLikes, upvoteBtn, upvoteImg, userName);
-
     newPostCard.append(newPostCardImg, newPostCardBody);
     newPostCard.data("post", post);
 
@@ -185,7 +184,6 @@ $(document).ready(function () {
 
     $.post("/api/post", post, function (data) {
       alert("Created new Post!");
-      console.log(data);
     });
 
     $('#exampleModal').modal('hide');

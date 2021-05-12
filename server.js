@@ -14,7 +14,7 @@ var db = require("./models");
 require("./config/passport")(passport);
 
 // Middleware ============
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
@@ -24,8 +24,8 @@ app.use(session({
   resave: true,
   saveUninitialized: false,
   cookie: {
-      expires: 10800000, // 3 HRS
-      httpOnly: false
+    expires: 10800000, // 3 HRS
+    httpOnly: false
   }
 }));
 
@@ -35,8 +35,8 @@ app.use(passport.session()); // persistent login sessions
 app.use(routes);
 
 // Launch server ==============
-db.sequelize.sync({ force: false }).then(function() {
-  app.listen(PORT, function() {
+db.sequelize.sync({ force: false }).then(function () {
+  app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
   });
 });
