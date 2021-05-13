@@ -1,4 +1,5 @@
 var db = require("../models");
+var Sequelize = require("sequelize");
 
 module.exports = {
     findAllLocation: function (req, res) {
@@ -73,6 +74,14 @@ module.exports = {
             where: {
                 BloggerUuid: bloggerID
             },
+            include: [db.Blogger]
+        }).then(function (dbPost) {
+            res.json(dbPost);
+        });
+    },
+    searchAllPosts: function (req, res) {
+        db.Post.findAll({
+            where: Sequelize.where(Sequelize.fn('lower', Sequelize.col('title')), { [Sequelize.Op.like]: '%' + req.params.searchTerm + '%' }),
             include: [db.Blogger]
         }).then(function (dbPost) {
             res.json(dbPost);
