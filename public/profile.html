@@ -69,16 +69,6 @@
 
     <script type="text/javascript">
 
-        $(".logout-btn").click(function () {
-            $.get('/api/auth/logout', function (response) {
-                if (response) {
-                    location.reload();
-                } else {
-                    alert("Please try again");
-                }
-            });
-        });
-
         $(document).ready(function () {
             moment().format();
 
@@ -185,6 +175,7 @@
             getMyPosts();
         });
     </script>
+    <script src="./assets/js/logout.js" type="text/javascript"></script>
 
 </body>
 
