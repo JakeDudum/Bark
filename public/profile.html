@@ -74,25 +74,13 @@
 
             var myUserName;
 
-            $(".logout-btn").click(function () {
-                $.get('/api/auth/logout', function (response) {
-                    if (response) {
-                        location.reload();
-                    } else {
-                        alert("Please try again");
-                    }
-                });
-            });
-
             function getMyPosts() {
                 $.get("/api/post/findAll", function (data) {
-                    console.log("Posts", data);
-                    posts = data;
-                    if (!posts || !posts.length) {
+                    if (!data || !data.length) {
                         displayEmpty();
                     }
                     else {
-                        initializeRows(posts);
+                        initializeRows(data);
                     }
                 });
 
