@@ -1,6 +1,5 @@
 $(document).ready(function () {
     var crd;
-    var cityName;
     moment().format();
 
     var options = {
@@ -47,7 +46,7 @@ $(document).ready(function () {
                 // remove loader
                 $("#loader").slideUp('slow');
 
-                getPosts(cityName);
+                getPosts();
             })();
         });
     }

@@ -7,6 +7,12 @@ router.route("/")
 router.route("/findAll")
     .get(post.findAllPosts);
 
+router.route("/like/:id")
+    .put(post.addLike);
+
+router.route("/dislike/:id")
+    .put(post.removeLike);
+
 router.route("/search/:searchTerm")
     .get(post.searchAllPosts);
 

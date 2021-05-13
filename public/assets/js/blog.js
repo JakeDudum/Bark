@@ -1,4 +1,4 @@
-function getPosts(cityName, categoryId) {
+function getPosts(categoryId) {
   if (categoryId !== undefined) {
     $.get("/api/post/" + cityName + "/category/" + categoryId, function (data) {
       if (!data || !data.length) {
@@ -12,12 +12,11 @@ function getPosts(cityName, categoryId) {
 
   else {
     $.get("/api/post/" + cityName, function (data) {
-      posts = data;
-      if (!posts || !posts.length) {
+      if (!data || !data.length) {
         displayEmpty();
       }
       else {
-        initializeRows(posts);
+        initializeRows(data);
       }
     });
   }
@@ -49,6 +48,7 @@ function displayEmpty() {
 }
 
 function createNewRow(post) {
+  console.log(post);
   //CREATE NEW post card
   var newPostCard = $("<div>");
   newPostCard.addClass("card m-2");
@@ -60,15 +60,6 @@ function createNewRow(post) {
   //CREATE NEW post card body
   var newPostCardBody = $("<div>");
   newPostCardBody.addClass("card-body");
-
-  //CREATE NEW upvote button
-  var upvoteBtn = $("<button>");
-  upvoteBtn.text("Like");
-  upvoteBtn.addClass("upvote btn-sm btn-primary");
-
-  //CREATE NEW like counter
-  var newPostLikes = $("<small>");
-  newPostLikes.attr('id', post.id);
 
   //CREATE NEW post title
   var newPostTitle = $("<h5>");
@@ -102,12 +93,29 @@ function createNewRow(post) {
 
   newPostTime.text(formattedDate); //grab created at from post
   newPostDate.append(newPostTime);
-  newPostLikes.text(post.likes);
-  upvoteBtn.attr('value', post.id);
   newPostCardImg.attr('src', post.image);
 
+  //CREATE NEW upvote button
+  var likeBtn = $("<button>");
+  likeBtn.addClass("btn-sm btn-primary");
 
-  newPostCardBody.append(newPostTitle, newPostCardText, newPostDate, newPostLikes, upvoteBtn, upvoteImg, userName);
+  //CREATE NEW like counter
+  var newPostLikes = $("<small>");
+  newPostLikes.attr('id', post.id);
+  newPostLikes.text(post.likes);
+
+  if (post.Likes.length != 0) {
+    likeBtn.text("Dislike");
+    likeBtn.addClass("downvote");
+    likeBtn.data("like", post.Likes[0].id);
+  } else {
+    likeBtn.text("Like");
+    likeBtn.addClass("upvote");
+  }
+
+  likeBtn.attr('value', post.id);
+
+  newPostCardBody.append(newPostTitle, newPostCardText, newPostDate, newPostLikes, likeBtn, upvoteImg, userName);
   newPostCard.append(newPostCardImg, newPostCardBody);
   newPostCard.data("post", post);
 
@@ -136,21 +144,52 @@ $(".post").on('click', function (event) {
 
 $(document).on('click', ".upvote", function (event) {
   event.preventDefault();
-  var likes = parseInt($("#" + $(this).val()).text());
-  likes += 1;
 
+  var btn = $(this);
   var target = $(this).val();
-  var newlikes = {
-    likes: likes
-  };
+  var likes = parseInt($("#" + target).text());
+  likes++;
 
-  $.ajax("/api/post/" + $(this).val(), {
-    type: "PUT",
-    data: newlikes
-  }).then(
-    function (data) {
-      $("#" + target).text(likes);
-    }
+  $.ajax("/api/post/like/" + $(this).val(), {
+    type: "PUT"
+  }).then(function (data) {
+    btn.removeClass("upvote");
+    btn.addClass("downvote");
+    btn.text("Dislike");
+    $("#" + target).text(likes);
+    $.ajax("/api/like/post/" + target, {
+      type: "POST"
+    }).then(function (data) {
+      console.log(data);
+      btn.data("like", data.id)
+    })
+  }
+  );
+});
+
+$(document).on('click', ".downvote", function (event) {
+  event.preventDefault();
+
+  var btn = $(this);
+  var target = $(this).val();
+  var likes = parseInt($("#" + target).text());
+  var likeId = $(this).data("like");
+  console.log(btn.data("like"));
+  likes--;
+
+  $.ajax("/api/post/dislike/" + $(this).val(), {
+    type: "PUT"
+  }).then(function (data) {
+    btn.removeClass("downvote");
+    btn.addClass("upvote");
+    btn.text("Like");
+    $("#" + target).text(likes);
+    $.ajax("/api/like/" + likeId, {
+      type: "DELETE"
+    }).then(function (data) {
+
+    });
+  }
   );
 });
 

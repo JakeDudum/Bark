@@ -185,7 +185,7 @@ h2 {
     width: 100%;
 }
 
-.upvote {
+.upvote, .downvote {
     width: 20%;
     float: left;
     margin-right: 5px;

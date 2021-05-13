@@ -42,13 +42,5 @@ module.exports = function (sequelize, DataTypes) {
         return bcrypt.compareSync(lpw, password);
     };
 
-    // accociations ======================
-    Blogger.associate = function (models) {
-        Blogger.hasOne(models.Account, {
-            foreignKey: "accountUUID",
-            onDelete: "cascade"
-        });
-    };
-    
     return Blogger;
 }

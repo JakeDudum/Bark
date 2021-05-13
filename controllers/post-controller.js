@@ -7,7 +7,7 @@ module.exports = {
             where: {
                 city: req.params.city
             },
-            include: [db.Blogger]
+            include: [db.Blogger, db.Like]
         }).then(function (dbPost) {
             res.json(dbPost);
         });
@@ -18,7 +18,7 @@ module.exports = {
                 city: req.params.city,
                 CategoryId: req.params.categoryId
             },
-            include: [db.Blogger]
+            include: [db.Blogger, db.Like]
         }).then(function (dbPost) {
             res.json(dbPost);
         });
@@ -28,7 +28,7 @@ module.exports = {
             where: {
                 id: req.params.id
             },
-            include: [db.Blogger]
+            include: [db.Blogger, db.Like]
         }).then(function (dbPost) {
             res.json(dbPost);
         });
@@ -63,7 +63,7 @@ module.exports = {
             where: {
                 id: req.params.postId
             },
-            include: [db.Blogger]
+            include: [db.Blogger, db.Like]
         }).then(function (dbPost) {
             res.json(dbPost);
         });
@@ -74,15 +74,30 @@ module.exports = {
             where: {
                 BloggerUuid: bloggerID
             },
-            include: [db.Blogger]
+            include: [db.Blogger, db.Like]
         }).then(function (dbPost) {
             res.json(dbPost);
         });
     },
+    addLike: function (req, res) {
+        db.Post.increment('likes', {
+            where: { id: req.params.id },
+            include: [db.Like]
+        })
+            .then(function (dbPost) {
+                res.json(dbPost);
+            });
+    },
+    removeLike: function (req, res) {
+        db.Post.decrement('likes', { where: { id: req.params.id } })
+            .then(function (dbPost) {
+                res.json(dbPost);
+            });
+    },
     searchAllPosts: function (req, res) {
         db.Post.findAll({
             where: Sequelize.where(Sequelize.fn('lower', Sequelize.col('title')), { [Sequelize.Op.like]: '%' + req.params.searchTerm + '%' }),
-            include: [db.Blogger]
+            include: [db.Blogger, db.Like]
         }).then(function (dbPost) {
             res.json(dbPost);
         });

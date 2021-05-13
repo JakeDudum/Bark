@@ -28,7 +28,7 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
-    city:{
+    city: {
       type: DataTypes.STRING,
       allowNull: false
     }
@@ -47,7 +47,11 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false
       }
     });
-    
+
+    Post.hasMany(models.Like, {
+      onDelete: "cascade"
+    });
+
   };
 
   return Post;
