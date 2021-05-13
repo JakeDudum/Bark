@@ -58,112 +58,43 @@
     <div class="row no-gutters justify-content-center">
         <div class="col-12 col-sm-10">
             <div class="card border-dark mb-3" id="history">
-                <div class="card-header">Post History</div>
-                <div class="card-body text-dark">
-                    <p class="post-history"></p>
+                <h3 class="card-header">Post History</h3>
+                <hr>
+                <div class="row no-gutters">
+                    <div id="column-1" class="col-12 col-md-6">
+                        <h3>No Post to display</h3>
+                    </div>
+
+                    <div id="column-2" class="col-12 col-md-6">
+
+                    </div>
                 </div>
-                <div id="posts"></div>
             </div>
         </div>
-    </div>
 
-    <script type="text/javascript">
+        <script type="text/javascript">
 
-        $(document).ready(function () {
-            moment().format();
+            $(document).ready(function () {
+                moment().format();
 
-            var myUserName;
+                var myUserName;
 
-            function getMyPosts() {
-                $.get("/api/post/findAll", function (data) {
-                    if (!data || !data.length) {
-                        displayEmpty();
-                    }
-                    else {
-                        initializeRows(data);
-                    }
-                });
-
-                function initializeRows(posts) {
-                    $("#posts").empty();
-
-                    for (var i = 0; i < posts.length; i++) {
-                        $("#posts").prepend(createNewRow(posts[i]));
-                    }
-                    $("#username").text(myUserName + "'s Profile");
-                };
-
-                function displayEmpty() {
-                    $("#posts").html("<h2>Nothing Here<h2>");
+                function getMyPosts() {
+                    $.get("/api/post/findAll", function (data) {
+                        if (!data || !data.length) {
+                            displayEmpty();
+                        }
+                        else {
+                            console.log(data)
+                            initializeRows(data);
+                        }
+                    });
                 }
-
-                function createNewRow(post) {
-                    //CREATE NEW post card
-                    var newPostCard = $("<div>");
-                    newPostCard.addClass("card m-2");
-                    //CREATE NEW psot card img
-                    var newPostCardImg = $("<img>");
-                    newPostCardImg.addClass("card-img-top");
-                    //CREATE NEW post card body
-                    var newPostCardBody = $("<div>");
-                    newPostCardBody.addClass("card-body");
-                    //CREATE NEW upvote button
-                    var upvoteBtn = $("<button>");
-                    upvoteBtn.text("Like");
-                    upvoteBtn.addClass("upvote btn-sm btn-primary");
-                    //CREATE NEW like counter
-                    var newPostLikes = $("<small>");
-                    newPostLikes.attr('id', post.id);
-                    //CREATE NEW post title
-                    var newPostTitle = $("<h5>");
-                    newPostTitle.addClass("card-title");
-                    //CREATE NEW post date
-                    var newPostDate = $("<p>");
-                    newPostDate.addClass("card-text");
-                    //CREATE NEW post time
-                    var newPostTime = $("<small>")
-                    newPostTime.addClass("text-muted");
-                    //CREATE NEW card text
-                    var newPostCardText = $("<p>");
-                    newPostCardText.addClass("card-text");
-                    //CREATE NEW username
-                    var userName = $("<p>").text(post.Blogger.name);
-                    userName.addClass("username");
-                    myUserName = post.Blogger.name;
-
-                    var upvoteImg = $("<img>").attr('src', "assets/images/bone.jpg");
-                    upvoteImg.addClass("bone");
-
-                    newPostTitle.text(post.title + " "); //grab title from post
-                    newPostCardText.text(post.body); //grab body from post
-                    // need to make fomatted date with moments
-
-                    formattedDate = post.createdAt
-                    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a")
-
-                    newPostTime.text(formattedDate); //grab created at from post
-                    console.log(post.createdAt)
-                    console.log(formattedDate)
-
-                    newPostDate.append(newPostTime);
-                    newPostLikes.text(post.likes);
-                    upvoteBtn.attr('value', post.id);
-
-                    newPostCardImg.attr('src', post.image);
-
-                    newPostCardBody.append(newPostTitle, newPostCardText, newPostDate, newPostLikes, upvoteBtn, upvoteImg, userName);
-
-                    newPostCard.append(newPostCardImg, newPostCardBody);
-                    newPostCard.data("post", post);
-
-                    return newPostCard;
-                };
-            }
-
-            getMyPosts();
-        });
-    </script>
-    <script src="./assets/js/logout.js" type="text/javascript"></script>
+                getMyPosts();
+            });
+        </script>
+        <script src="./assets/js/blog.js" type="text/javascript"></script>
+        <script src="./assets/js/logout.js" type="text/javascript"></script>
 
 </body>
 
