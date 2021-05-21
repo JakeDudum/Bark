@@ -1,4 +1,6 @@
+// Gets all posts for city and category or just city if there is no categoryId provided
 function getPosts(categoryId) {
+  // Has a categoryId
   if (categoryId !== undefined) {
     $.get("/api/post/" + cityName + "/category/" + categoryId, function (data) {
       if (!data || !data.length) {
@@ -9,7 +11,7 @@ function getPosts(categoryId) {
       }
     });
   }
-
+  // Does not have categoryId
   else {
     $.get("/api/post/" + cityName, function (data) {
       if (!data || !data.length) {
@@ -22,6 +24,7 @@ function getPosts(categoryId) {
   }
 }
 
+// Handles creation of posts and prepends them to the appropriate column
 function initializeRows(posts) {
   $("#column-1").empty();
   $("#column-2").empty();
@@ -42,13 +45,14 @@ function initializeRows(posts) {
   }
 };
 
+// Adds h2 tags with text 'Nothing Here' (run when there are no posts to display)
 function displayEmpty() {
   $("#column-1").html("<h2>Nothing Here<h2>");
   $("#column-2").html("<h2>Nothing Here<h2>");
 }
 
+// Creates a new post card with all post data and dynamically creates Like/Dislike button based on user
 function createNewRow(post) {
-  console.log(post);
   //CREATE NEW post card
   var newPostCard = $("<div>");
   newPostCard.addClass("card m-2");
@@ -86,8 +90,8 @@ function createNewRow(post) {
 
   newPostTitle.text(post.title + " "); //grab title from post
   newPostCardText.text(post.body); //grab body from post
-  // need to make fomatted date with moments
 
+  // Formatted date with moments
   formattedDate = post.createdAt
   formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a")
 
@@ -104,6 +108,7 @@ function createNewRow(post) {
   newPostLikes.attr('id', post.id);
   newPostLikes.text(post.likes);
 
+  // Determine if user has already liked post and adjust like button as necessary
   if (post.Likes.length != 0) {
     likeBtn.text("Dislike");
     likeBtn.addClass("downvote");
@@ -115,6 +120,7 @@ function createNewRow(post) {
 
   likeBtn.attr('value', post.id);
 
+  // Appends all created elements to the new post card
   newPostCardBody.append(newPostTitle, newPostCardText, newPostDate, newPostLikes, likeBtn, upvoteImg, userName);
   newPostCard.append(newPostCardImg, newPostCardBody);
   newPostCard.data("post", post);
@@ -122,9 +128,11 @@ function createNewRow(post) {
   return newPostCard;
 };
 
+// Listener for post button that grabs all post form data and submits it to backend api
 $(".post").on('click', function (event) {
   event.preventDefault();
 
+  // Post data
   var post = {
     title: $("#title").val().trim(),
     body: $("#body").val().trim(),
@@ -133,6 +141,7 @@ $(".post").on('click', function (event) {
     city: cityName
   };
 
+  // Post creation
   $.post("/api/post", post, function (data) {
     alert("Created new Post!");
   });
@@ -142,6 +151,7 @@ $(".post").on('click', function (event) {
   getPosts($("#categorySelect").val());
 });
 
+// Listener for like button that increases like count for post and creates a new like in the Like table
 $(document).on('click', ".upvote", function (event) {
   event.preventDefault();
 
@@ -167,6 +177,7 @@ $(document).on('click', ".upvote", function (event) {
   );
 });
 
+// Listener for dislike button that unlikes a post, decreases the like count for the post, and deletes the matching row in Like table
 $(document).on('click', ".downvote", function (event) {
   event.preventDefault();
 
@@ -186,13 +197,11 @@ $(document).on('click', ".downvote", function (event) {
     $("#" + target).text(likes);
     $.ajax("/api/like/" + likeId, {
       type: "DELETE"
-    }).then(function (data) {
-
-    });
-  }
-  );
+    })
+  });
 });
 
+// Listener for category buttons that highlights them in the sidebar and then runs getPosts() with the category id
 $(".category-btn").on('click', function (event) {
   event.preventDefault();
 
@@ -202,8 +211,8 @@ $(".category-btn").on('click', function (event) {
   getPosts(dataId);
 });
 
+// Highlights the matching category in the sidebar nav
 function highlightCategory(selectionId) {
-
   for (var i = 1; i < 9; i++) {
     if (i !== selectionId) {
       $("#category-" + i).css("background-image", "none");

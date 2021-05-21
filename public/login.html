@@ -51,6 +51,7 @@
 
 
     <script>
+        // Gets login info from login form and starts logo animation before running login()
         $('#login').click(function (event) {
             event.preventDefault();
             $('#auth-form')[0].reportValidity();
@@ -71,12 +72,14 @@
             }
         });
 
+        // Sends user to signup.html
         $('#signup').click(function (event) {
             event.preventDefault();
 
             location.href = "/signup";
         });
 
+        // Logs the user into the site or displays error message(if any)
         function login(payload) {
             $.post('/api/auth/login', payload, function (response) {
                 if (response.success) {
@@ -88,6 +91,7 @@
             });
         }
 
+        // Displays error message to user
         function displayMSG(response) {
             $('#message').text(response.message)
             $(".msg-wrap").slideDown("slow");

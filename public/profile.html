@@ -77,9 +77,11 @@
             $(document).ready(function () {
                 moment().format();
 
+                // Gets username and displays it
                 var myUserName = getCookie("user_name");
                 $("#username").text(myUserName + "'s Profile");
 
+                // Gets cookie with matching name
                 function getCookie(name) {
                     var nameEQ = name + "=";
                     var ca = document.cookie.split(';');
@@ -91,6 +93,7 @@
                     return null;
                 }
 
+                // Gets all posts made by user
                 function getMyPosts() {
                     $.get("/api/post/findAll", function (data) {
                         if (!data || !data.length) {

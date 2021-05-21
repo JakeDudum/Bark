@@ -52,6 +52,7 @@
 
 
     <script>
+        // Gets data from signup form and runs the logo animation before running signup()
         $('#signup').click(function (event) {
             event.preventDefault();
             $('#auth-form')[0].reportValidity();
@@ -73,6 +74,7 @@
             }
         });
 
+        // Signs the user up for an account and then logs them in or displays error message(if any)
         function signup(payload) {
             $.post('/api/auth/signup', payload, function (response) {
                 if (response.success) {
@@ -84,8 +86,8 @@
             });
         }
 
+        // Displays error message
         function displayMSG(response) {
-
             $('#message').text(response.message)
             $(".msg-wrap").slideDown("slow");
         }
