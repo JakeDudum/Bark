@@ -2,27 +2,31 @@ $(document).ready(function () {
     var crd;
     moment().format();
 
+    // Setting options for geolocation
     var options = {
         enableHighAccuracy: true,
         timeout: 5000,
         maximumAge: 0
     };
 
+    // If geolocation is successful gets cords and run createWeatherWidget()
     function success(pos) {
         crd = pos.coords;
 
         createWeatherWidget();
     }
 
+    // If error in geoloaction displays error in console
     function error(err) {
         console.warn(`ERROR(${err.code}): ${err.message}`);
     }
 
     navigator.geolocation.getCurrentPosition(success, error, options);
 
-
+    // Weather API key
     var apiKey = "e9d3c600773e0277e03e42289aeaf483";
 
+    // Creates weather widget and then gets all posts with matching city name
     function createWeatherWidget() {
         $.ajax({
             url: 'https://cryptic-castle-96421.herokuapp.com/api.openweathermap.org/data/2.5/weather?lat=' + crd.latitude + '&lon=' + crd.longitude + '&units=imperial&appid=' + apiKey,
