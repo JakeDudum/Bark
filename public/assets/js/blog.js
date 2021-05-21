@@ -146,9 +146,17 @@ $(".post").on('click', function (event) {
     alert("Created new Post!");
   });
 
+  var category = $("#categorySelect").val();
+
+  // Clean up modal form
+  $("#title").val("");
+  $("#body").val("");
+  $("#imageLink").val("");
+  $("#categorySelect").val("");
+
   $('#exampleModal').modal('hide');
   highlightCategory($("#categorySelect").val());
-  getPosts($("#categorySelect").val());
+  getPosts(category);
 });
 
 // Listener for like button that increases like count for post and creates a new like in the Like table
