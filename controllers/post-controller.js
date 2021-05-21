@@ -3,22 +3,24 @@ var Sequelize = require("sequelize");
 
 module.exports = {
     findAllLocation: function (req, res) {
+        var bloggerID = req.session.passport.user;
         db.Post.findAll({
             where: {
                 city: req.params.city
             },
-            include: [db.Blogger, db.Like]
+            include: [db.Blogger, { model: db.Like, where: { BloggerUuid: bloggerID }, required: false }]
         }).then(function (dbPost) {
             res.json(dbPost);
         });
     },
     findAllCategory: function (req, res) {
+        var bloggerID = req.session.passport.user;
         db.Post.findAll({
             where: {
                 city: req.params.city,
                 CategoryId: req.params.categoryId
             },
-            include: [db.Blogger, db.Like]
+            include: [db.Blogger, { model: db.Like, where: { BloggerUuid: bloggerID }, required: false }]
         }).then(function (dbPost) {
             res.json(dbPost);
         });
@@ -74,7 +76,7 @@ module.exports = {
             where: {
                 BloggerUuid: bloggerID
             },
-            include: [db.Blogger, db.Like]
+            include: [db.Blogger, { model: db.Like, where: { BloggerUuid: bloggerID }, required: false }]
         }).then(function (dbPost) {
             res.json(dbPost);
         });
@@ -95,9 +97,10 @@ module.exports = {
             });
     },
     searchAllPosts: function (req, res) {
+        var bloggerID = req.session.passport.user;
         db.Post.findAll({
             where: Sequelize.where(Sequelize.fn('lower', Sequelize.col('title')), { [Sequelize.Op.like]: '%' + req.params.searchTerm + '%' }),
-            include: [db.Blogger, db.Like]
+            include: [db.Blogger, { model: db.Like, where: { BloggerUuid: bloggerID }, required: false }]
         }).then(function (dbPost) {
             res.json(dbPost);
         });
