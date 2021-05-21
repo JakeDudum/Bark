@@ -19,12 +19,15 @@ router.route("/search/:searchTerm")
 router.route("/:city")
     .get(post.findAllLocation);
 
-router.route("/:postId")
+router.route("/find/:postId")
     .get(post.getOne)
     .put(post.update)
     .delete(post.remove);
 
 router.route("/:city/category/:categoryId")
     .get(post.findAllCategory);
+
+router.route("/:city/search/:searchTerm")
+    .get(post.searchAllCityPosts);
 
 module.exports = router;

@@ -31,7 +31,7 @@
             <input class="form-control px-0" type="search" placeholder="Search" aria-label="Search">
         </div>
         <div class="col-4 col-sm-4 col-lg-2 col-xl-1">
-            <button type="button" class="actn-btn btn btn-light btn-small">Search</button>
+            <button id="userSearch-btn" type="button" class="actn-btn btn btn-light btn-small">Search</button>
         </div>
         <div class="col-4 col-sm-4 col-lg-2 col-xl-1">
             <button type="button" class="actn-btn btn btn-light btn-small" data-toggle="modal"
@@ -103,6 +103,18 @@
                 }
 
                 getMyPosts();
+            });
+
+            // Searchs for all posts with similar title to search term that were posted by the user
+            $("#userSearch-btn").click(function () {
+                event.preventDefault();
+                $.get('/api/post/search/' + $('#searchQuery').val(), function (response) {
+                    if (response) {
+                        initializeRows(response);
+                    } else {
+                        alert("Please try it again!");
+                    }
+                });
             });
         </script>
         <script src="./assets/js/blog.js" type="text/javascript"></script>

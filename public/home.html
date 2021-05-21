@@ -200,7 +200,7 @@
         // Searchs for all posts with similar title to search term
         $("#search-btn").click(function () {
             event.preventDefault();
-            $.get('/api/post/search/' + $('#searchQuery').val(), function (response) {
+            $.get('/api/post/' + cityName + '/search/' + $('#searchQuery').val(), function (response) {
                 if (response) {
                     initializeRows(response);
                 } else {

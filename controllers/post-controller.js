@@ -96,10 +96,25 @@ module.exports = {
                 res.json(dbPost);
             });
     },
+    searchAllCityPosts: function (req, res) {
+        var bloggerID = req.session.passport.user;
+        db.Post.findAll({
+            where: {
+                city: req.params.city,
+                $col: Sequelize.where(Sequelize.fn('lower', Sequelize.col('title')), { [Sequelize.Op.like]: '%' + req.params.searchTerm + '%' })
+            },
+            include: [db.Blogger, { model: db.Like, where: { BloggerUuid: bloggerID }, required: false }]
+        }).then(function (dbPost) {
+            res.json(dbPost);
+        });
+    },
     searchAllPosts: function (req, res) {
         var bloggerID = req.session.passport.user;
         db.Post.findAll({
-            where: Sequelize.where(Sequelize.fn('lower', Sequelize.col('title')), { [Sequelize.Op.like]: '%' + req.params.searchTerm + '%' }),
+            where: {
+                BloggerUuid: bloggerID,
+                $col: Sequelize.where(Sequelize.fn('lower', Sequelize.col('title')), { [Sequelize.Op.like]: '%' + req.params.searchTerm + '%' })
+            },
             include: [db.Blogger, { model: db.Like, where: { BloggerUuid: bloggerID }, required: false }]
         }).then(function (dbPost) {
             res.json(dbPost);
