@@ -7,21 +7,15 @@ var passport = require('passport');
 // =====================================
 router.post('/login', function (req, res, next) {
   passport.authenticate("local-login", function (err, user, info) {
-    console.log(user)
-
     if (err) {
-      console.log(err)
       return next(err); // will generate a 500 error
     }
     if (!user) {
-      console.log(user)
-      console.log(info)
       return res.json({ success: false, message: info });
     }
     else {
       req.login(user, function (loginErr) {
         if (loginErr) {
-          console.log("loginerr", loginErr)
           return next(loginErr);
         }
         res.cookie('user_email', user.email);
@@ -40,22 +34,17 @@ router.post('/login', function (req, res, next) {
 router.post('/signup', function (req, res, next) {
 
   passport.authenticate("local-signup", function (err, user, info) {
-    console.log(user)
     if (err) {
-      console.log(err)
       return next(err); // will generate a 500 error
     }
     // Generate a JSON response reflecting authentication status
     if (!user) {
-      console.log(user)
-      console.log(info)
       return res.send({ success: false, message: info });
     }
 
     else {
       req.login(user, function (loginErr) {
         if (loginErr) {
-          console.log("loginerr", loginErr)
           return next(loginErr);
         }
 
@@ -74,7 +63,6 @@ router.post('/signup', function (req, res, next) {
 // LOGOUT ==============================
 // =====================================
 router.get('/logout', function (req, res, next) {
-  console.log("logout");
   req.session.destroy(function (err) {
     if (err) return next(err); // will generate a 500 error
 
